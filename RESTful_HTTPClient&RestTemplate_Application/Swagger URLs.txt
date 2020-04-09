@@ -1,0 +1,2 @@
+Verify Swagger2 JSON Format Docs->  http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/v2/api-docs
+Verify Swagger2 UI Docs->           http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/swagger-ui.html
