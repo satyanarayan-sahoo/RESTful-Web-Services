@@ -1,0 +1,1065 @@
+                                                   RESTful Web Services
+                                                   ====================
+1.What is Distributed application?
+==================================
+->Distributed applications are such applications or software that runs on multiple computers within a network at the same
+  time and can be stored on servers or with cloud computing.
+->Unlike traditional applications that run on a single system, distributed applications run on multiple systems 
+  simultaneously for a single task or job.
+
+2.What is Webservice?
+=====================
+->Webservice is a distributed technology which is used to develop distributed applications with intereoperability.
+Ex:RESTful Web Services are used to develop distributed applications with intereoperability.
+->Intereoperability means: Platform independent and language independent.
+	java --- c#
+	java --- python
+	python --- java
+	java ---- C++
+
+3.What is RESTful Web Service?
+==============================
+->REST stands for Representational State Transfer.
+->REST is used to build Web services that are lightweight, maintainable, and scalable in nature. 
+->A web service which is built on the REST architecture is called a RESTful web service. 
+->The underlying protocol for REST is HTTP, which is the basic web protocol.
+->If a client, say a web browser needs any of resources, it has to send a request to the server to access these resources.
+  Now REST defines a way on how these resources can be accessed.
+
+4.Why we need Restful services?
+===============================
+->Now a days every application having business requirements to communicate with other applications. 
+->We can communicate from one app to another app using webservices.
+->There are some challenges involved in working with webservices. 
+->To overcome challenges in webservice, Restful Services came into picture.
+
+5.REST Architecture principles
+==============================
+Unique Addressbility::-Every resource should bind to unique address.Means every resource URL is different.
+Uniform constraint interfaces (http methods)::-Every methods whatever we are writing in resource we should bind them to http 
+                                               designator methods.Like GET, POST, PUT and DELETE.
+Message oriented representation::-Client can decide in which format he wants to send data as an input to resource. 
+                                 -Client can decide in which format he wants retrive data as a response from resource.
+                                 -At resource side we will use below two annotations to specify input and output formats.
+                                  -@Consumes - to specify input format.
+                                  -@Produces - to specify outut format.
+Communication stateless(Stateless Protocol)::-A protocol that will not remember the data which is exchanged between client
+                                              and server.Http is a stateless protocol.
+Hypermedia as the Engine of Application State (HATEOAS)::-Hypermedia as the Engine of Application State is a component of 
+                                                          the REST application architecture that distinguishes it from other
+                                                          network application architectures. 
+                                                         -With HATEOAS,a client interacts with a network application whose
+                                                          application servers provide information dynamically through
+                                                          hypermedia.
+                                                         -HATEOAS is a constraint on REST that says that a client of a REST
+                                                          application need only know a single fixed URL to access it. Any 
+                                                          and all resources should be discoverable dynamically from that URL
+                                                          through hyperlinks included in the representations of returned 
+                                                          resources.
+                                                         -GET Request URL : http://192.168.0.1:8080/EmpApp/101
+
+6.Request Headers
+=================
+–>These are additional instructions sent with the request.These might define the type of response and the type of request 
+  required or the authorization details.
+  Accept::Specifies the content types that are valid for the response message.Ex: application/xml,application/json.
+  Content-Type::Indicates the content type that is used in the body of the request.
+                Ex: For POST request,if the supported content type is XML,then we have to provide application/xml.
+
+7.Request Body
+==============
+->Data is sent with the request. Data is normally sent in the request when a POST/PUT request is made to the REST web service. 
+  In a POST/PUT call, the client actually tells the web service that it wants to add a resource to the server. Hence, the 
+  request body would have the details of the resource which is required to be added to the server.
+->If we are using POST/PUT API, then based on the REST API contract, we should send the whole resource information because
+  these methods work on the whole resource.
+->Response body is needed only for POST / PUT request(Because these requests are need a body).
+
+8.Response Header
+=================
+–>These are additional instructions comes with the response.
+  Allow::Lists the allowed request types for the solution or entity.Ex:GET(means it a Get mode response)
+  Content-Type::The MIME type of the response content.Ex:application/xml
+  Status::The Status line in the HTTP response indicates whether the server responded to the request successfully, or if
+          there was an error.Ex:200 - OK indicates a successful response.
+                                405 - Method not allowed indicates an error.
+
+9.Response Body
+===============
+–>This is the main body of the response. So in our example, if we were to query the web server via the request 
+  http://www.eureka.com/employee/1 , the web server might return an XML document with all the details of the employee in 
+  the Response Body.
+
+10.Response Status codes
+========================
+->An HTTP status code is a server response to a browser’s request. When you visit a website, your browser sends a request
+  to the site’s server, and the server then responds to the browser’s request with a three-digit code: the HTTP status code.
+–>These codes are the general codes which are returned along with the response from the web server. An example is the code 
+  200 which is normally returned if there is no error when returning a response to the client.
+
+1xxs – Informational responses: The server is thinking through the request.
+2xxs – Success!: The request was successfully completed and the server gave the browser the expected response.
+3xxs – Redirection: You got redirected somewhere else. The request was received, but there’s a redirect of some kind.
+4xxs – Client errors: Page not found. The site or page couldn’t be reached. (The request was made, but the page isn’t valid 
+       this is an error on the website’s side of the conversation and often appears when a page doesn’t exist on the site.)
+5xxs – Server errors: Failure. A valid request was made by the client but the server failed to complete the request.
+
+200--->OK:-The request was successful.
+201--->CREATED:-When a resource is successful created using POST or PUT request.
+204--->NO CONTENT:-When response body is empty for example, a DELETE request.
+301--->Permanent Redirect:-Means redirect should be utilized any time one URL needs to be redirected to another permanently.
+302--->Temporary Redirect:-Means redirect is similar to a 301 but temporary.
+304--->Not Modified:-The entity was not updated, possibly because the ETag condition, such as If-Match or If-None-Match,
+                     stopped the request from completing.
+400--->BAD REQUEST:-The request was not properly formed and therefore was not successful.
+                   -states that invalid input is provided validation error, missing data.      
+401--->UNAUTHORIZED:-States that user is using invalid or wrong authentication token.
+403--->FORBIDDEN:-States that user is not having access to method being used.For example, delete access without admin rights.
+404--->NOT FOUND:-States that method is not found.
+                 -The URI path is incorrect, or communication with the server was unsuccessful.
+                 -This means the file or page that the browser is requesting wasn’t found by the server. 
+                 -404s don’t indicate whether the missing page or resource is missing permanently or only temporarily.
+406--->Not Acceptable:-The Accept header response type is not supported. The supported types are XML and JSON. 
+409--->Conflict:-The entity or entities cannot be overwritten or deleted.
+410--->Gone:-Means it is more permanent than a 404,it means that the page is gone. 
+            -The page is no longer available from the server and no forwarding address has been set up.
+412--->Precondition Failed:-When the If-Match header is included in the request, this status indicates that the ETag 
+                            information did not match and therefore the entity was not updated.
+413--->Request Too Large:-The number of entities that is returned is too large.
+415--->Unsupported Media Type:-The request contains a format that the server cannot interpret.
+500--->INTERNAL SERVER ERROR:-States that server has thrown some exception while executing the method.
+                             -Instead of the problem being with pages missing or not found, this status code indicates a 
+                              problem with the server.
+503--->Service Unavailable:-503 response means that the server is unavailable or This could be due to temporarily overloading
+                            the server or maintenance of the server.
+
+11.HTTP Methods / HTTP verbs / Request Method Designator
+========================================================
+->The primary or most-commonly-used HTTP verbs (or methods, as they are properly called) are POST, GET, PUT, PATCH, and 
+  DELETE.RESTful APIs enable you to develop any kind of web application having all possible CRUD (create, retrieve, update, 
+  delete) operations by taking that HTTP verbs. 
+->In the Resource class write the methods which we want to expose the over the Http protocol as resource method.The Methods
+  should be annotated with relevant Http method designators @GET, @POST, @PUT and @DELETE.
+  Ex:When we sent a GET request the method with @GET annotation would be executed to the request.
+->@GET, @POST, @PUT, @DELETE and @HEAD resource method designator annotations defined by JAX-RS and which correspond to the 
+  similarly named HTTP methods.
+
+(i)HTTP GET (Read)
+------------------
+->Use GET requests to retrieve resource representation/information only – and not to modify it in any way. As GET requests 
+  do not change the state of the resource, these are said to be safe methods.So GET APIs should be idempotent.
+->They are purely for retrieving the resource representation.So invoking multiple requests will not have any write operation
+  on server.
+->When client invoke a get request,it hit the resource method which is bind with @GET with appropriate url in resource class.
+->According to the design of the HTTP specification, GET (along with HEAD) requests are used only to read data and not change
+  it. Therefore, when used this way, they are considered safe. That is, they can be called without risk of data modification
+  or corruption—calling it once has the same effect as calling it 10 times, or none at all. Additionally, GET (and HEAD) is
+  idempotent, which means that making multiple identical requests ends up having the same result as a single request.
+  So GET, HEAD, PUT, DELETE, OPTIONS and TRACE are idempotent.
+->For any given HTTP GET API, if the resource is found on the server then it must return HTTP response code 200 (OK) – along
+  with response body which is usually either XML or JSON content.In case resource is NOT found on server then it must return
+  HTTP response code 404 (NOT FOUND). 
+->Similarly, if it is determined that GET request itself is not correctly formed then server will return HTTP response code
+  400 (BAD REQUEST).
+->As per HTTP specification, the GET and HEAD methods should be used only for retrieval of resource representations – and 
+  they do not update/delete the resource on the server. Both methods are said to be considered “safe“.
+
+(ii)HTTP POST (Create)
+----------------------
+->POST APIs are used to create a new resource on server.On successful creation, return HTTP status 201.
+->Return 404 (when Not Found), 409 (when Conflict) if resource already exists.
+->When client invoke a post request with request body,it hit the resource method which is bind with @POST with appropriate
+  url in resource class.
+->In POST request mode request body carries the payload.
+->POST is neither safe nor idempotent.So when you invoke the same POST request N times, you will have N new resources on the 
+  server.So, POST is not idempotent.
+
+(iii)HTTP PUT (Update/Replace)
+------------------------------
+->Use PUT APIs to update existing resource(if the resource does not exist then PUT API will create a new resource).
+->On successful update, return 200.If using PUT for create, return HTTP status 201 on successful creation. 
+->Generally if you invoke a PUT API N times, the very first request will update the resource,then next N-1 requests will 
+  just overwrite the same resource state again and again–effectively not changing anything.Hence, PUT is idempotent.
+->The difference between the POST and PUT APIs can be observed in request URIs.POST requests are made on resource 
+  collections whereas PUT requests are made on an individual resource.
+
+(iv)HTTP DELETE (Delete)
+------------------------
+->As the name applies, DELETE APIs are used to delete resources (identified by the Request-URI).
+->A successful response of DELETE requests SHOULD be HTTP response code 200 (OK).
+->DELETE operations are idempotent. 
+->When you invoke N similar DELETE requests, first request will delete the resource and response will be 200 (OK) or 204 
+  (No Content).Remaining N-1 requests will return 404 (Not Found).Clearly, the response is different from first request,
+  but there is no change of state for any resource on server side because original resource is already deleted.So, DELETE
+  is idempotent.
+
+(v)HTTP PATCH (Update/Modify)
+-----------------------------
+->A PATCH request is one of the lesser-known HTTP methods,it is similar to POST and PUT.The difference with PATCH is it 
+  apply partial modifications to the resource.
+->PATCH method is the correct choice for partially updating an existing resource and PUT should only be used if you’re 
+  replacing a resource entirely.
+->The difference between PATCH and PUT, is that a PATCH request is non-idempotent (like a POST request).
+
+14.What is Idempotent REST?
+===========================
+->An idempotent HTTP method is an HTTP method that can be called many times without different outcomes.It would not matter 
+  if the method is called only once, or ten times.The result should be the same.It essentially means that the result of a
+  successfully performed request is independent of the number of times it is executed.
+->Example: In arithmetic, adding zero to a number is idempotent operation.
+->In HTTP specification, The methods GET, HEAD, PUT and DELETE are declared idempotent methods. Other methods OPTIONS and 
+  TRACE SHOULD NOT have side effects, so both are also inherently idempotent.
+
+15.What is non-Idempotent REST?
+===============================
+->An non-idempotent HTTP method is an HTTP method that would cause some harm if executed multiple times.(As they change some
+  values or states).Every time it changes or added some new value(means every time different outcomes).
+->Example:An operation that withdraws from a bank account.
+->HTTP POST and PATCH methods are the non-Idempotent methods.
+
+16.JAX-RS is API from sun
+=========================
+->JAX-RS API used to develop the Restful web services in java platform.
+->Means it creating web services according to the Representational State Transfer (REST) architectural pattern.
+->JAX-RS stands for Java API for RESTful Web Services.
+->JAX-RS RS 2.0 the latest release of JAX-RS.
+
+Implementations for JAX-RS API
+------------------------------
+(i)Jersey is the reference implementation from sun(now Oracle).
+(ii)RESTeasy from JBOSS's implementation.
+
+(i)Jersey Implementation
+------------------------
+->Jesrsey RESTful web services implementation is an open source,production quality,used for developing RESTful Web services
+  in java that provides support for JAX-RS APIs.
+->Jersey implementation is given by sun and it is having two versions 1.x and 2.x
+->Jersey 1.x provided Servlet com.sun.jersey.spi.container.servlet.ServletContainer
+->Jersey 2.x provided Servlet org.glassfish.jersey.servlet.ServletContainer 
+
+(ii)RESTEasy Implementation
+---------------------------
+->RESTEasy is a JBoss project that provides various frameworks to help you build RESTful Web Services and 
+  RESTful Java applications. It is a fully certified and portable implementation of the JAX-RS 2.1 
+  specification.
+
+Note:
+-----
+->For that jax-rs api provided jax-rs runtime servlet.
+    Jersey ------ > ServletContainer
+    RESTeasy -----> HttpServletDispatcher
+->These servlets we need to configure as front controller.
+->These classes we need to configure web.xml file.
+->If client request url pattern matches with jax-rs runtime servlet url pattern then that request wil be 
+  recieved by JAX-RS runtime servlet.
+
+Resource implemenation we can do in below 3 ways
+------------------------------------------------
+1)jax-rs with Jersey
+2)jax-rs with RESTeasy
+3)Spring with Rest(@RestController)
+
+17.Difference between SOAP and Restful services
+===============================================
+->In soap web services we can use only XML to make communication between the client and server provider.
+  In Restful web service we can make communication in between server provider and client using XML,
+  JSON(Javascript Object Notation),text,HTML.
+->Soap Web Service supports both server level and application level security.
+  But Restful services support only server level security but not for the Application level security.
+
+18.JSON
+=======
+->JSON is an open standard for exchanging data on the web.It supports data structures like object and array.
+  So it is easy to write and read data from JSON.
+->JSON stands for JavaScript Object Notation.
+->JSON is lightweight data-interchange format.
+->JSON is easy to read and write than XML.
+->JSON is text-based document.
+->JSON is originated from JavaScript.
+->JSON is easy to read and write.
+->JSON is language independent and platform independent.
+->JSON supports array, object, string, number and values.
+
+JSON DataTypes
+--------------
+(i)Number::Ex: {"marks": 97}
+(ii)String::Ex; {"name": "Amit"}
+(iii)Boolean::true or false.
+              Ex: {name: 'Amit', marks: 97, distinction: true}
+(iv)Array::an ordered sequence of values.
+           Ex: {
+                 "books": [
+                      { "language":"Java" , "edition":"second" },
+                      { "language":"C++" , "lastName":"fifth" },
+                      { "language":"C" , "lastName":"third" }
+                          ]
+               }
+(v)Value::it can be a string, a number, true or false, null etc.
+(vi)Object::an unordered collection of key:value pairs.
+            Ex: {
+                "id": "011A",
+                "language": "JAVA",
+                "price": 500,
+                }
+(vii)Whitespace::can be used between any pair of tokens. Ex: {"name":" "}
+(viii)null::empty.It means empty type.
+
+Note
+----
+->To read the JSON format data from the java application and to construct JSON format data for the java 
+  application we require JSON API.
+(i)Jackson API
+(ii)Gson (Google sun) API
+->By using all the above APIs from java application we can convert java object to json format and Json format
+  to java object.
+
+(i)Jackson API
+--------------
+->Provides Object Mapper class that is used to convert java obj into json and json into java obj.
+->ObjectMapper class Important methods are:
+  -public String writeValueAsString() --->It is used to convert java obj into json.
+  -public T readValue() --->used to convert json into java obj.
+
+(ii)Gson (Google sun) API
+-------------------------
+->Gson class Important methods are:
+  -public String toJson() --->It is used to convert java obj into json.
+  -public T fromJson() --->used to convert json into java obj.
+
+19.What is Resource or Root Resource?
+=====================================
+->The fundamental concept in any RESTful API is the resource. A resource is an object with a type, associated
+  data,relationships to other resources, and a set of methods that operate on it. It is similar to an object
+  instance in an object-oriented programming language.
+->These resources can be Text Files, Html Pages, Images, Videos or Dynamic Business Data. REST Server simply 
+  provides access to resources and REST client accesses and modifies the resources.
+->Here each resource is identified by URIs(Uniform Resource Identifiers).
+->REST uses various representations to represent a resource where Text,Html,JSON,XML.The most popular 
+  representations of resources are XML and JSON.
+eg:XML:
+<user> 
+   <id>1</id> 
+   <name>Mahesh</name>
+   <profession>Teacher</profession> 
+</user> 
+
+eg:JSON:
+{ 
+   "id":1, 
+   "name":"Mahesh", 
+   "profession":"Teacher" 
+}
+->It is server-side class which contains the data and functionality which is exposed as Resource class to the
+  client.
+->Root resource classes are simple java classes that must be annotated with @Path annotation.
+->The Resource class methods are required to denote with resource method designator annotation such as @GET,
+  @PUT, @POST, @DELETE.
+->A method in a resource class that is annotated with Request Method Designator(like @GET,@PUT,@POST,@DELETE)
+  is called as Resource method which are exposing over the Network.
+->Any class that is annotated with @Path Annotation is called as root resource class.
+->In the RESTful services the Resources classes are associated with URI(Uniform Resource Identifiers) to 
+  identify and access it.
+->The @Path annotation's value is a relative URI(Uniform Resource Identifier) path.
+
+20.JAX-RS API Annotations
+=========================
+(i)@Path
+--------
+->The @Path annotation is used to specify the relative path of the resource class or method.
+->we can apply in class level,method level.
+->It is mandatory to specify.
+
+(ii)@GET
+--------
+->HTTP Get request, used to fetch resource.
+->we can apply in method level.
+
+(iii)@POST
+----------
+->HTTP POST request, used to create resource.
+->we can apply in method level.
+
+(iv)@PUT
+--------
+->HTTP PUT request, used to create/update resource.Basically replace a particular resource.
+->we can apply in method level.
+
+(v)@DELETE
+----------
+->HTTP DELETE request, used to delete resource.
+->we can apply in method level.
+
+(vi)@HEAD
+---------
+->HTTP HEAD request, used to get status of method availability.
+->we can apply in method level.
+
+(vii)@Consumes
+--------------
+->The @Consumes annotation is used to specify which MIME media types of representations a resource can accept
+  or consume from the client.If @Consumes is applied at the class level,all the response methods accept the 
+  specified MIME types by default.If @Consumes is applied at the method level it overrides any @Consumes 
+  annotations applied at the class level.
+->If a resource is unable to consume the MIME type of client request,the Jersey runtime sends back an HTTP
+  "415 Unsupported Media Type" error. 
+->We can apply in class level,method level.
+->The value of @Consumes is an array of String of acceptable MIME types. 
+  Example: @Consumes({"text/plain, text/html"}) or @Consumes(MediaType.APPLICATION_JSON)
+
+(viii)@Produces
+---------------
+->The @Produces annotation is used to specify the MIME media types or representations a resource can produce
+  and send back to the client.If @Produces is applied at the class level, all the methods in a resource can
+  produce the specified MIME types by default.If @Produces is applied at the method level it overrides any 
+  @Produces annotations applied at the class level.
+->If a resource is unable to produce the MIME type of client request,the Jersey runtime sends back an HTTP 
+  "406 Not Acceptable" error.Means the Accept header response type is not supported.
+->We can apply in class level,method level.
+->The value of @Produces is an array of String of acceptable MIME types. 
+  Example: @Produces({"text/plain, text/html"}) or @Produces(MediaType.APPLICATION_JSON)
+
+(ix)@PathParam
+--------------
+->@PathParam Binds the parameter passed to a resource method.It taking input as a variable.
+->Binds the parameter passed to method to a value in path.
+Ex:
+@Path("/library")
+public class Library {
+
+   @GET
+   @Path("/book/{isbn}")
+   public String getBook(@PathParm("isbn") Integer id) {
+      // search my database and get a string representation and return it
+   }
+} 
+URI Pattern : localhost:8080/library/book/123
+
+(x)@QueryParam
+--------------
+->@QueryParam Binds the parameter passed to a resource method.It taking input as a query parameter.
+->It is used for invoking data as input through query String parameters.
+->Client has to sent @QueryParam values in request URI in the form of key and value pair.
+->The Query Parameters are name value pair's(means name value pair).
+->The Query Parameters are starts with ? in the URL and if multiple Query parameters are there separated with
+  & symbol.
+Ex:
+@Path("/users")
+public class UserService {
+
+	@GET
+	@Path("/query")
+	public Response getUsers(
+		@QueryParam("from") int from,
+		@QueryParam("to") int to,
+		@QueryParam("orderBy") List<String> orderBy) {
+       }
+}
+URI Pattern : localhost:8080/users/query?from=100&to=200&orderBy=age&orderBy=name
+
+Note
+----
+->Both @QueryParam and @Path Param can be used only on the following Java types:
+-All primitive types except char.
+-All wrapper classes of primitive types except Character.
+-Any class with a constructor that accepts a single String argument.
+-Any class with the static method named valueOf(String) that accepts a single String argument.
+
+(xi)@MatrixParam
+----------------
+->@MatrixParam Binds the parameter passed to resource method.It taking input as a HTTP matrix param.
+->Matrix Parameters are arbitrary set of name-value pairs embedded in a uri path segment.
+->The Matrix Parameters are start with semicolon (;) and if multiple parameters are there then separated with
+  semicolon.
+->The matrix parameters are Name-Value Pair's(Means name value pair).
+Ex:
+@Path("/books")
+public class BookService {
+
+	@GET
+	@Path("{year}")
+	public Response getBooks(@PathParam("year") String year,
+			@MatrixParam("author") String author,
+			@MatrixParam("country") String country) {
+        }
+}
+URI Pattern : localhost:8080/books/2011;author=RajBabu;country=India
+
+(xii)@FormParam
+---------------
+->@FormParam bind the parameter passed to resource method.It taking the value from a HTML form fields.
+->@FormParam is used to bind html form fields to a resource method inputs.It works only HTTP method POST.
+  Beacause in POST we can save data in resource.
+Ex:
+@Path("/user")
+public class UserService {
+
+	@POST
+	@Path("/add")
+	public Response addUser(
+		@FormParam("name") String name,
+		@FormParam("age") int age) {
+        }
+}
+URI Pattern : localhost:8080/RESTfulExample/UserForm.html
+
+(xiii)@BeanParam
+----------------
+->The @BeanParam annotation is added to the JAX-RS 2.0 specification. 
+->It allows you to inject a pojo whose property methods or fields are annotated with any of the injection 
+  parameters supported by JAX-RS.To name a few: @FormParam, @PathParam, @QueryParam and @HeaderParam and etc.
+->The @BeanParam will be introspected by JAX-RS at runtime for injection annotations 
+Ex:
+public class UserInput {
+
+    @FormParam("name")
+    private String name;
+
+    @FormParam("age")
+    private int age;
+
+    @FormParam("addrs")
+    private String address;
+    
+    public String toString(){
+    }
+}
+
+@Path("/users")
+public class UserResource {
+
+    @POST
+    public void createCustomer(@BeanParam UserInput user){
+        System.out.println(user);
+    }
+
+}
+
+(xiv)@CookieParam
+-----------------
+->@CookieParam Binds the parameter passed to resource method.It taking input as a Cookie.
+->Cookie is a name-value pair.
+->In general cookie is transferring from server to client and client to server.
+->The cookie object is creating in server system but stores in client system.
+->We can retrieve the entire cookie by injecting the cookie with the @CookieParam annotation providing the 
+  cookie name.
+Ex:
+@Path("/test")
+public class Test{
+          
+        @GET
+        public Response getCookie(@CookieParam("name") Cookie cookie){
+            return Response.ok().build();
+        }
+} 
+
+(xv)@HeaderParam
+----------------
+->In two ways to get HTTP request header in JAX-RS :
+  -Inject directly with @HeaderParam
+  -Pragmatically via @Context
+->@HeaderParam Binds the parameter passed to resource method.It taking input as a HTTP header.
+Ex:
+@Path("/users")
+public class UserService {
+
+	@GET
+	@Path("/get")
+	public Response addUser(@HeaderParam("user-agent") String userAgent) {
+
+		return Response.status(200)
+			.entity("addUser is called, userAgent : " + userAgent)
+			.build();
+	}
+}
+URI Pattern : localhost:8080/users/get
+
+(xvi)@Context
+-------------
+->In the place of @HeaderParam annotation alternatively you can also use @Context.
+Eg:
+@Path("/users")
+public class UserService {
+
+	@GET
+	@Path("/get")
+	public Response addUser(@Context HttpHeaders headers) {
+
+		String userAgent = headers.getRequestHeader("user-agent").get(0);
+		
+		return Response.status(200)
+			.entity("addUser is called, userAgent : " + userAgent)
+			.build();
+	}
+} 
+URI Pattern : localhost:8080/users/get
+
+(xvii)@DefaultValue
+-------------------
+->Assign a default value to a parameter passed to a method.We can use @DefaultValue("") along with any of the
+  injection parameters supported by JAX-RS. To name a few: @FormParam, @PathParam, @QueryParam and 
+  @HeaderParam and etc.
+Eg:
+@Path("/employee")
+public class QueryParamExampleService {
+ 
+    @GET
+    @Path("/query")
+    public Response getEmployeeQueryDefault(
+                    @DefaultValue("accounts") @QueryParam("dept") String department,
+                    @DefaultValue("bangalore") @QueryParam("branch") String branch){
+        String resp = "Query parameters are received. 'dept' value is: "
+                        +department+" and branch value is: "+branch;
+         
+        return Response.status(200).entity(resp).build();
+    }
+}
+URI Pattern : localhost:8080/employee/query 
+Response: Query parameters are received. 'dept' value is: accounts and branch value is: bangalore
+
+(xvii)@RequestBody
+------------------
+->Annotation indicating a method parameter should be bound to the body of the HTTP request.
+Eg:
+@RequestMapping(path = "/something", method = RequestMethod.PUT)
+public void handle(@RequestBody String body, Writer writer) throws IOException {
+    writer.write(body);
+}
+
+(xviii)@ResponseBody
+--------------------
+->Annotation can be put on a method and indicates that the return type should be written straight to the HTTP
+  response body.
+Eg:
+@RequestMapping(path = "/something", method = RequestMethod.PUT)
+public  @ResponseBody String helloWorld() {
+    return "Hello World";
+} 
+
+(xix)@ControllerAdvice
+----------------------
+->To handle REST exceptions globally we need to use this annotation.
+->@ControllerAdvice annotation is specialization of @Component annotation and it’s methods (annotated with 
+  @ExceptionHandler) are shared across multiple @Controller classes, globally.
+->Classes with @ControllerAdvice are auto-detected via classpath scanning.
+Ex:
+   @ControllerAdvice
+   public class CustomExceptionHandler extends ResponseEntityExceptionHandler{
+      @ExceptionHandler(Exception.class)
+      public final ResponseEntity<ErrorResponse> handleAllExceptions(Exception ex) {}
+
+      @ExceptionHandler(RecordNotFoundException.class)
+      public final ResponseEntity<ErrorResponse> handleUserNotFoundException(RecordNotFoundException ex) {}
+   }
+
+(xx)@ExceptionHandler
+---------------------
+->@ExceptionHandler annotation is used for handling exceptions in specific handler classes and/or handler 
+  methods.
+Ex: 
+   @ExceptionHandler(NullPointerException.class)
+   public ModelAndView handleException(Exception ex){}
+->As mentioned earlier, above exception handler will handle all exceptions which are either instance of given
+  class or sub-classes of argument exception. But, if we want to configure @ExceptionHandler for multiple 
+  exceptions of different types, then we can specify all such exceptions in form of array.
+Ex: 
+   @ExceptionHandler(value = {BookNotFoundException.class,AuthorNotFoundException.class})
+   public ResponseEntity<CustomErrorResponse> customHandleNotFound(Exception ex) {}
+
+(xxi)@XmlRootElement
+--------------------
+->This maps a class or an enum type to an XML root element. When a top-level class or an enum type is 
+  annotated with the @XmlRootElement annotation, then its value is represented as XML element in an XML 
+  document.
+Ex:
+Employee.java
+@XmlRootElement(name = "employee")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+public class Employee implements Serializable 
+{
+    //More code
+}
+Above will result into:
+
+employee.xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<employee>
+    //....
+</employee>
+
+(xxii)@XmlAccessorType
+----------------------
+->It defines the fields or properties of your Java classes that the JAXB engine uses for including into 
+  generated XML. It has four possible values.
+
+FIELD – Every non static, non transient field in a JAXB-bound class will be automatically bound to XML, unless
+        annotated by XmlTransient.
+NONE – None of the fields or properties is bound to XML unless they are specifically annotated with some of 
+       the JAXB annotations.
+PROPERTY – Every getter/setter pair in a JAXB-bound class will be automatically bound to XML, unless annotated
+           by XmlTransient.
+PUBLIC_MEMBER – Every public getter/setter pair and every public field will be automatically bound to XML, 
+                unless annotated by XmlTransient.
+->Default value is PUBLIC_MEMBER.
+Ex:
+Employee.java
+@XmlRootElement(name = "employee")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Employee implements Serializable 
+{
+    private Integer id;
+    private String firstName;
+    private String lastName;
+}
+Above will result into:
+
+employee.xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<employee>
+    <firstName>Lokesh</firstName>
+    <id>1</id>
+    <lastName>Gupta</lastName>
+</employee>
+
+(xxiii)@XmlElement
+------------------
+->Maps a JavaBean property to an XML element derived from property name.
+
+Employee.java
+@XmlRootElement(name = "employee")
+public class Employee implements Serializable 
+{
+    @XmlElement(name=employeeId)
+    private Integer id;
+ 
+    @XmlElement
+    private String firstName;
+ 
+    private String lastName;
+    private Department department;
+}
+Above will result into:
+
+employee.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<employee>
+    <employeeId>1</employeeId>
+    <firstName>Lokesh</firstName>
+</employee>
+
+(xxiv)@XmlTransient
+-------------------
+->Prevents mapping a field or property to the XML Schema.
+
+(xxv)@PathVariable
+------------------
+->The @PathVariable annotation in spring binds the URI template variables to the handler method parameters of
+  a controller. A URI template can contain one or more path variables enclosed by the curly braces ({ }) in 
+  the following format:
+Ex:
+   @RequestMapping(value="/str/{countryName}/{userName}", method=RequestMethod.GET)
+   public ModelAndView getData(@PathVariable("countryName") String cname, @PathVariable("userName")
+                                             String uname) {}
+->@PathVariable and @PathParam both are used for accessing parameters from URI Template
+->Differences:
+           -As you mention @PathVariable is from spring and @PathParam is from JAX-RS.
+           -@PathParam can use with REST only, where @PathVariable used in Spring so it works in MVC and REST.
+
+21.Rest client implementation we can do in below ways
+=====================================================
+(i)java.net client
+(ii)apache http client
+(iii)JAX-RS with Jersey client
+(iv)JAX-RS with RESTeasy client
+(v)By using RestTemplate 
+(vi)Feign clients
+
+22.Developing Client Code By using Http Client
+==============================================
+(i)To access HTTP GET api requests:
+-----------------------------------
+public static void demoGetRESTAPI() throws Exception {
+	DefaultHttpClient httpClient = new DefaultHttpClient();
+		
+	final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/getPerson/105";
+	try {
+		HttpGet httpGet = new HttpGet(uri);
+		httpGet.addHeader("accept", "application/json");
+			
+		HttpResponse httpResponse= httpClient.execute(httpGet);
+			
+		int statusCode = httpResponse.getStatusLine().getStatusCode();
+		if (statusCode != 200) {
+			throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+		}//if
+			
+		HttpEntity entity= httpResponse.getEntity();
+		String apiOutput = EntityUtils.toString(entity);
+			
+		System.out.println(apiOutput);
+			
+		//Convert Json Object to java
+		Gson gson = new Gson();
+		Person person = gson.fromJson(apiOutput, Person.class);
+			
+		System.out.println(person.getId());
+		System.out.println(person.getName());
+		System.out.println(person.getAge());
+	} finally {
+		httpClient.getConnectionManager().shutdown();
+	}//finally
+		
+}//demoGetRESTAPI()
+
+(ii)To access HTTP POST api requests:
+-------------------------------------
+public static void demoPostRESTAPI() throws Exception {
+	DefaultHttpClient httpClient = new DefaultHttpClient();
+		
+	Person person = new Person();
+	person.setAge(45);
+	person.setName("Mahesh Babu");
+		
+	//Convert java object to Json
+	Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+	String jsonStr = gson.toJson(person);
+	    
+	final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/addPerson";
+	try {
+		HttpPost httpPost = new HttpPost(uri);
+		httpPost.addHeader("content-type", "application/json");
+			
+		StringEntity entity = new StringEntity(jsonStr);
+		httpPost.setEntity(entity);
+			
+		HttpResponse httpResponse = httpClient.execute(httpPost);
+			
+		int statusCode = httpResponse.getStatusLine().getStatusCode();
+		if (statusCode != 200) {
+			throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+		}//if
+	} finally {
+		httpClient.getConnectionManager().shutdown();
+	}//finally
+}//demoPostRESTAPI()
+
+(iii)To access HTTP PUT api requests:
+-------------------------------------
+public static void demoPutRESTAPI() throws Exception {
+	DefaultHttpClient httpClient = new DefaultHttpClient();
+		
+     final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/updateDetails/118";
+		
+	Person person = new Person();
+	person.setAge(57);
+	person.setName("Tom Cruse");
+		
+	//Convert java object to Json
+	Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+	String jsonStr = gson.toJson(person);
+	System.out.println(jsonStr);
+	try {
+		HttpPut httpPut = new HttpPut(uri);
+		httpPut.setHeader("content-type", "application/json");
+			
+		StringEntity entity = new StringEntity(jsonStr);
+		httpPut.setEntity(entity);
+			
+		HttpResponse httpResponse = httpClient.execute(httpPut);
+			
+		int statusCode = httpResponse.getStatusLine().getStatusCode();
+		if (statusCode != 200) {
+			throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+		}//if
+			
+	}finally {
+		httpClient.getConnectionManager().shutdown();
+	}//finally	
+}//demoPutRESTAPI()
+
+(iv)To access HTTP DELETE api requests:
+---------------------------------------
+public static void demoDeleteRESTAPI() throws Exception {
+	DefaultHttpClient httpClient = new DefaultHttpClient();
+		
+      final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/deletePerson/117";	
+	try {
+		HttpDelete httpDelete = new HttpDelete(uri);
+			
+		HttpResponse httpResponse = httpClient.execute(httpDelete);
+			
+		int statusCode = httpResponse.getStatusLine().getStatusCode();
+		if (statusCode != 200) {
+			throw new RuntimeException("Failed with HTTP error code : " + statusCode);
+		}
+	} finally {
+		httpClient.getConnectionManager().shutdown();
+	}
+}//demoDeleteRESTAPI()
+
+23.Developing Client Code By using RestTemplate
+===============================================
+(i)Spring REST client using RestTemplate to access HTTP GET api requests:
+-------------------------------------------------------------------------
+public static void demoGetRESTAPI() throws Exception {
+	final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/getPerson/{id}";
+		
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("id", "105");
+		
+	RestTemplate restTemplate = new RestTemplate();
+	String result = restTemplate.getForObject(uri, String.class, params);
+	System.out.println(result);
+}
+
+(ii)Spring REST client using RestTemplate to access HTTP POST api requests:
+---------------------------------------------------------------------------
+public static void demoPostRESTAPI() throws Exception {
+	final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/addPerson";
+		
+	Person person = new Person();
+	person.setAge(54);
+	person.setName("Salman Khan");
+		
+	RestTemplate restTemplate = new RestTemplate();
+	Person p = restTemplate.postForObject(uri, person, Person.class);
+	System.out.println(p);
+} 
+
+(iii)Spring REST client using RestTemplate to access HTTP PUT api requests:
+---------------------------------------------------------------------------
+public static void demoPutRESTAPI() throws Exception {
+     final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/updateDetails/{id}";
+		
+	Person person = new Person();
+	person.setAge(40);
+	person.setName("Prabhas");
+		
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("id", "115");
+		
+	RestTemplate restTemplate = new RestTemplate();
+	restTemplate.put(uri, person, params);
+}
+
+(iv)Spring REST client using RestTemplate to access HTTP DELETE api requests:
+-----------------------------------------------------------------------------
+public static void demoDeleteRESTAPI() throws Exception {
+      final String uri = "http://localhost:9439/RESTful_HTTPClient&RestTemplate_App/person/deletePerson/{id}";
+		
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("id", "116");
+		
+	RestTemplate restTemplate = new RestTemplate();
+	restTemplate.delete(uri, params);
+}
+
+24.Exception-Handling:
+======================
+->When we send a request to the resource, the resource sometimes may throws Exceptions.
+->If resource throws Exception, JAX-RS runtime will convert that exception into an response message with
+  status code as an error response code.
+->But if we want to return a custom error response rather than a default error response message we need to
+  handle exceptions and should return as a response shown below.
+Ex:
+->We need to identify the business exception usecases and denote them with exception classes. These classes
+  will extend the RuntimeException class.
+public class AuthorNotFoundException extends RuntimeException {
+	
+	private static final long serialVersionUID = 1L;
+
+	public AuthorNotFoundException(String author) {
+        super("Author name "+author+" is not found");
+}
+
+public class BookNotFoundException extends RuntimeException {
+	
+	private static final long serialVersionUID = 1L;
+
+	public BookNotFoundException(Long id) {
+        super("Book id "+id+" is not found");
+    }
+	
+}
+
+->This is a customize response class.
+public class CustomErrorResponse {
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+    private LocalDateTime timestamp;
+    private int status;
+    private String error;
+  
+    //setter and getter methods
+}//class
+
+->@ControllerAdvice annotation is specialization of @Component annotation and it’s methods (annotated with
+  @ExceptionHandler) are shared across multiple @Controller classes, globally.
+->Classes with @ControllerAdvice are auto-detected via classpath scanning.
+->Please note that ResponseEntityExceptionHandler is a convenient base class for @ControllerAdvice classes 
+  that wish to provide centralized exception handling across all @RequestMapping methods through 
+  @ExceptionHandler methods.
+@ControllerAdvice
+public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler{
+	
+	@ExceptionHandler(value = {BookNotFoundException.class,AuthorNotFoundException.class})
+	public ResponseEntity<CustomErrorResponse> customHandleNotFound(Exception ex) {
+
+        CustomErrorResponse errors = new CustomErrorResponse();
+        errors.setTimestamp(LocalDateTime.now());
+        errors.setError(ex.getMessage());
+        errors.setStatus(HttpStatus.NOT_FOUND.value());
+
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+        }
+	
+}//class
+
+25.Caching
+==========
+->When we opening of a webpage for the first time takes some time, but the second or third time it loads 
+  faster.This happens because whenever we visit a webpage for the first time, the cache is stored in the 
+  browser locally.Next onwards a request use that cache.
+->Caching is the ability to store copies of frequently accessed data in several places along the request-
+  response path.When a consumer requests a resource representation, the request goes through a cache or a 
+  series of caches (local cache, proxy cache or reverse proxy) toward the service hosting the resource. 
+  If any of the caches along the request path has a fresh copy of the requested representation, it uses that 
+  copy to satisfy the request.
+->This caching ability of the browser saves a lot of network bandwidth and helps in cutting down server load.
+
+(i)Browser or local Caches: 
+---------------------------
+->This is the local in-memory cache of a browser.This is the fastest cache.
+->Whenever we hit a webpage a local copy is stored in browser and then second time it uses this local copy 
+  instead of making a real request over the network.
+
+(ii)Proxy Caches:
+-----------------
+->These are pseudo web servers that work as middlemen between browsers and websites.
+->These server cache is static content and serve its clients so the client does not have to go to server for
+  these resources.
+
+26.Spring with Rest
+===================
+->we use @RestController in the controller class to make the class as a resource class.Here we can maintain 
+  the class accessing path also by @RequestMapping(path = "/employees")
+->we use @RequestMapping(value="/..",method=RequestMethod.POST,consumes={"application/xml","application/json"},
+  produces={"application/xml","application/json"})  in the method level.Here we can maintain the method path,
+  Method type,consumes and produces type data.Alternatively we can use @GetMapping,@PostMapping
+
+Eg:
+@RestController
+@RequestMapping(path = "/employees")
+public class EmployeeController
+{
+     
+    @GetMapping(path="/", produces = "application/json")
+    public Employees getEmployees()
+    {   
+    }
+     
+    @PostMapping(path= "/", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Object> addEmployee(@RequestBody Employee employee)
+    {
+    }
+}
+
+
