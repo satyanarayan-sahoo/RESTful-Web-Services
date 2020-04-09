@@ -1,0 +1,2 @@
+Verify Swagger2 JSON Format Docs->  http://localhost:9438/SpringRest-ExceptionHandling/v2/api-docs
+Verify Swagger2 UI Docs->           http://localhost:9438/SpringRest-ExceptionHandling/swagger-ui.html
